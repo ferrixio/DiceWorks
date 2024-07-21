@@ -2,10 +2,8 @@
 using System.Windows.Input;
 using System.Text.RegularExpressions;
 using DiceWorks.ViewModel;
-using System.Windows.Controls;
-using DiceWorks.Models;
 
-namespace DiceWorks
+namespace DiceWorks.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -16,12 +14,12 @@ namespace DiceWorks
         {
             InitializeComponent();
             MainWindowVM mainWVM = new();
-
+            this.DataContext = mainWVM;
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex re = new(@"^[+-]?[0-9]*$");
+            Regex re = new(@"^[0-9]*$");
             e.Handled = !re.IsMatch(e.Text);
         }
 
@@ -43,7 +41,7 @@ namespace DiceWorks
 
         private bool IsTextNumeric(string text)
         {
-            Regex regex = new(@"^[+-]?[0-9]*$");
+            Regex regex = new(@"^[0-9]*$");
             return regex.IsMatch(text);
         }
     }

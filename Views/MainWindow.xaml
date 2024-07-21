@@ -1,18 +1,20 @@
-﻿<Window x:Class="DiceWorks.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="DiceWorks.Views.MainWindow"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" Name="mainwindow" Title="DiceWorks"
-        Height="450" Width="800"
+        WindowStartupLocation="CenterScreen" x:Name="mainwindow" Title="DiceWorks" ResizeMode="CanMinimize"
+        Width="500" Height="500"
         Background="{DynamicResource Backdrop}">
     <!--Keyboard shortcuts-->
     <Window.InputBindings>
         <KeyBinding Key="R" Command="{Binding RollCommand}"/>
+
     </Window.InputBindings>
-    
+
     <!--Main window content-->
     <Grid>
         <Grid.ColumnDefinitions>
@@ -22,37 +24,137 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
+            <RowDefinition Height="24"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
 
         <!--main dock of dice-->
-        <DockPanel Grid.Row="1" Grid.Column="1">
+        <DockPanel Grid.Row="2" Grid.Column="1">
             <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
-                
+
                 <!--d4 row-->
                 <StackPanel Orientation="Horizontal">
-                    <Icon:PackIconMaterial Kind="Numeric4BoxOutline" VerticalAlignment="Center" Foreground="{DynamicResource Text}"
-                                           Margin="5"/>
-                    <Button Style="{StaticResource MinusButton}" x:Name="testUno" Click="Counter_Click"/>
-                    <Button Style="{StaticResource PlusButton}" x:Name="testDue" Click="Counter_Click"/>
-                    
-                    <TextBox Width="50" Height="25" HorizontalAlignment="Center" BorderThickness="0.5" FontSize="15"
-                             Margin="5 0 0 0" Name="d4counter" Background="{DynamicResource cellBack}" Foreground="{DynamicResource Text}"
-                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                             PreviewTextInput="NumberValidationTextBox"
-                             Text="{Binding d4Count, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Icon:PackIconMaterial Kind="DiceD4" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Button Style="{StaticResource MinusButton}" x:Name="d4Minus" Command="{Binding MinusOneCommand}" CommandParameter="4"/>
+                    <Button Style="{StaticResource PlusButton}" x:Name="d4Plus" Command="{Binding PlusOneCommand}" CommandParameter="4"/>
+
+                    <TextBox Style="{StaticResource NumericBox}" x:Name="d4counter" PreviewTextInput="NumberValidationTextBox"
+                             Text="{Binding D4Count, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBox Width="50" Height="25" HorizontalAlignment="Center" BorderThickness="0.5" FontSize="15"
-                             Margin="5 0 0 0" Name="d4modifier" Background="{DynamicResource cellBack}" Foreground="{DynamicResource Text}"
+                             Margin="5 0 0 0" x:Name="d4modifier" Background="{DynamicResource cellBack}" Foreground="{DynamicResource Text}"
                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                             PreviewTextInput="NumberValidationTextBox"
+                             PreviewTextInput="NumberValidationTextBox" MaxLength="3"
                              DataObject.Pasting="NumericTextBox_Pasting"
-                             Text="{Binding d4Mod, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding D4Mod, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
-                
+
+                <!--d6 row-->
+                <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                    <Icon:PackIconMaterial Kind="DiceD6" Height="40" Width="40" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="0 5 10 5"/>
+                    <Button Style="{StaticResource MinusButton}" x:Name="d6Minus" Command="{Binding MinusOneCommand}" CommandParameter="6"/>
+                    <Button Style="{StaticResource PlusButton}" x:Name="d6Plus" Command="{Binding PlusOneCommand}" CommandParameter="6"/>
+
+                    <TextBox Style="{StaticResource NumericBox}" x:Name="d6counter" PreviewTextInput="NumberValidationTextBox"
+                             Text="{Binding D6Count, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBox Width="50" Height="25" HorizontalAlignment="Center" BorderThickness="0.5" FontSize="15"
+                             Margin="5 0 0 0" x:Name="d6modifier" Background="{DynamicResource cellBack}" Foreground="{DynamicResource Text}"
+                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                             PreviewTextInput="NumberValidationTextBox" MaxLength="3"
+                             DataObject.Pasting="NumericTextBox_Pasting"
+                             Text="{Binding D6Mod, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!--d8 row-->
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="DiceD8" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Button Style="{StaticResource MinusButton}" x:Name="d8Minus" Command="{Binding MinusOneCommand}" CommandParameter="8"/>
+                    <Button Style="{StaticResource PlusButton}" x:Name="d8Plus" Command="{Binding PlusOneCommand}" CommandParameter="8"/>
+
+                    <TextBox Style="{StaticResource NumericBox}" x:Name="d8counter" PreviewTextInput="NumberValidationTextBox"
+                             Text="{Binding D8Count, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBox Width="50" Height="25" HorizontalAlignment="Center" BorderThickness="0.5" FontSize="15"
+                             Margin="5 0 0 0" x:Name="d8modifier" Background="{DynamicResource cellBack}" Foreground="{DynamicResource Text}"
+                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                             PreviewTextInput="NumberValidationTextBox" MaxLength="3"
+                             DataObject.Pasting="NumericTextBox_Pasting"
+                             Text="{Binding D8Mod, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!--d10 row-->
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="DiceD10" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Button Style="{StaticResource MinusButton}" x:Name="d10Minus" Command="{Binding MinusOneCommand}" CommandParameter="10"/>
+                    <Button Style="{StaticResource PlusButton}" x:Name="d10Plus" Command="{Binding PlusOneCommand}" CommandParameter="10"/>
+
+                    <TextBox Style="{StaticResource NumericBox}" x:Name="d10counter" PreviewTextInput="NumberValidationTextBox"
+                             Text="{Binding D10Count, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBox Width="50" Height="25" HorizontalAlignment="Center" BorderThickness="0.5" FontSize="15"
+                             Margin="5 0 0 0" x:Name="d10modifier" Background="{DynamicResource cellBack}" Foreground="{DynamicResource Text}"
+                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                             PreviewTextInput="NumberValidationTextBox" MaxLength="3"
+                             DataObject.Pasting="NumericTextBox_Pasting"
+                             Text="{Binding D10Mod, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!--d12 row-->
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="DiceD12" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Button Style="{StaticResource MinusButton}" x:Name="d12Minus" Command="{Binding MinusOneCommand}" CommandParameter="12"/>
+                    <Button Style="{StaticResource PlusButton}" x:Name="d12Plus" Command="{Binding PlusOneCommand}" CommandParameter="12"/>
+
+                    <TextBox Style="{StaticResource NumericBox}" x:Name="d12counter" PreviewTextInput="NumberValidationTextBox"
+                             Text="{Binding D12Count, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBox Width="50" Height="25" HorizontalAlignment="Center" BorderThickness="0.5" FontSize="15"
+                             Margin="5 0 0 0" x:Name="d12modifier" Background="{DynamicResource cellBack}" Foreground="{DynamicResource Text}"
+                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                             PreviewTextInput="NumberValidationTextBox" MaxLength="3"
+                             DataObject.Pasting="NumericTextBox_Pasting"
+                             Text="{Binding D12Mod, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!--d20 row-->
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="DiceD20" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Button Style="{StaticResource MinusButton}" x:Name="d20Minus" Command="{Binding MinusOneCommand}" CommandParameter="20"/>
+                    <Button Style="{StaticResource PlusButton}" x:Name="d20Plus" Command="{Binding PlusOneCommand}" CommandParameter="20"/>
+
+                    <TextBox Style="{StaticResource NumericBox}" x:Name="d20counter" PreviewTextInput="NumberValidationTextBox"
+                             Text="{Binding D20Count, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBox Width="50" Height="25" HorizontalAlignment="Center" BorderThickness="0.5" FontSize="15"
+                             Margin="5 0 0 0" x:Name="d20modifier" Background="{DynamicResource cellBack}" Foreground="{DynamicResource Text}"
+                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                             PreviewTextInput="NumberValidationTextBox" MaxLength="3"
+                             DataObject.Pasting="NumericTextBox_Pasting"
+                             Text="{Binding D20Mod, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
             </StackPanel>
         </DockPanel>
 
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Style="{StaticResource WideIconButton}" Name="roll" ToolTip="Roll dice">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Icon:PackIconMaterial Kind="DiceMultiple" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"
+                                           Height="25" Width="25"/>
+                    <TextBlock Text="Roll dice!" Margin="0"/>
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource WideIconButton}" Name="clear" Margin="10 0 0 0" ToolTip="Clear all values">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Icon:PackIconMaterial Kind="CloseOctagonOutline" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"
+                                           Height="25" Width="25"/>
+                    <TextBlock Text="Clear all" Margin="0"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

@@ -9,12 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="5.0.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="5.0.0" />
-    <PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="5.0.0" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

@@ -6,15 +6,56 @@
     <SolidColorBrush Color="#EDEDED" x:Key="Backdrop"/>
     <SolidColorBrush Color="Black" x:Key="Text"/>
     <SolidColorBrush Color="White" x:Key="cellBack"/>
+    <SolidColorBrush Color="#FF3F19" x:Key="RollDiceBackground"/>
     <SolidColorBrush Color="#1966FF" x:Key="MinusButtonBackground"/>
-    <SolidColorBrush Color="#FF1966" x:Key="PlusButtonBackGround"/>
+    <SolidColorBrush Color="#FF1966" x:Key="PlusButtonBackground"/>
+
+    <Style x:Key="NumericBox" TargetType="TextBox">
+        <Setter Property="Background" Value="{DynamicResource cellBack}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+        <Setter Property="Margin" Value="5 0 0 0"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="BorderThickness" Value="0.5"/>
+        <Setter Property="MaxLength" Value="3"/>
+    </Style>
+
+    <Style x:Key="WideIconButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Height" Value="auto"/>
+        <Setter Property="Width" Value="auto"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource RollDiceBackground}"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <Style x:Key="MinusButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Width" Value="50"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="ToolTip" Value="i--"/>
         <Setter Property="Template">
@@ -23,7 +64,8 @@
                     <Border Background="{TemplateBinding Background}">
                         <Grid>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Icon:PackIconMaterial Kind="Minus" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource Text}"/>
+                            <Icon:PackIconMaterial Kind="Minus" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource Text}"
+                                                   Height="25" Width="25"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -42,8 +84,8 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Width" Value="50"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="ToolTip" Value="i++"/>
         <Setter Property="Template">
@@ -52,7 +94,8 @@
                     <Border Background="{TemplateBinding Background}">
                         <Grid>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource Text}"/>
+                            <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource Text}"
+                                                   Height="25" Width="25"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -61,7 +104,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource PlusButtonBackGround}"/>
+                <Setter Property="Background" Value="{DynamicResource PlusButtonBackground}"/>
                 <Setter Property="Foreground" Value="White"/>
             </Trigger>
         </Style.Triggers>
