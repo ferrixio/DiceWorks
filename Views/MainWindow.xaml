@@ -12,7 +12,6 @@
     <!--Keyboard shortcuts-->
     <Window.InputBindings>
         <KeyBinding Key="R" Command="{Binding RollCommand}"/>
-        <KeyBinding Key="Return" Command="{Binding RollCommand}"/>
         <KeyBinding Key="C" Command="{Binding ClearCommand}"/>
         <KeyBinding Key="Delete" Command="{Binding ClearCommand}"/>
 
@@ -63,7 +62,8 @@
         
         <!--labels-->
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Dice" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" FontFamily="Rodondo"/>
-        <TextBlock Grid.Row="1" Grid.Column="2" Text="Modifiers" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" FontFamily="Rodondo"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Modifiers" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" FontFamily="Rodondo"
+                   ToolTip="Keybind: Alt"/>
 
         <!--main dock of dice-->
         <DockPanel Grid.Row="2" Grid.Column="1">
@@ -71,7 +71,8 @@
 
                 <!--d4 row-->
                 <StackPanel Orientation="Horizontal">
-                    <Icon:PackIconMaterial Kind="DiceD4" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Icon:PackIconMaterial Kind="DiceD4" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"
+                                           ToolTip="Keybind: P"/>
                     <Button Style="{StaticResource MinusButton}" x:Name="d4Minus" Command="{Binding MinusOneCommand}" CommandParameter="4"/>
                     <Button Style="{StaticResource PlusButton}" x:Name="d4Plus" Command="{Binding PlusOneCommand}" CommandParameter="4"/>
 
@@ -81,7 +82,8 @@
 
                 <!--d6 row-->
                 <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
-                    <Icon:PackIconMaterial Kind="DiceD6" Height="40" Width="40" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="0 5 10 5"/>
+                    <Icon:PackIconMaterial Kind="DiceD6" Height="40" Width="40" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="0 5 10 5"
+                                           ToolTip="Keybind: H"/>
                     <Button Style="{StaticResource MinusButton}" x:Name="d6Minus" Command="{Binding MinusOneCommand}" CommandParameter="6"/>
                     <Button Style="{StaticResource PlusButton}" x:Name="d6Plus" Command="{Binding PlusOneCommand}" CommandParameter="6"/>
 
@@ -91,7 +93,8 @@
 
                 <!--d8 row-->
                 <StackPanel Orientation="Horizontal">
-                    <Icon:PackIconMaterial Kind="DiceD8" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Icon:PackIconMaterial Kind="DiceD8" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"
+                                           ToolTip="Keybind: O"/>
                     <Button Style="{StaticResource MinusButton}" x:Name="d8Minus" Command="{Binding MinusOneCommand}" CommandParameter="8"/>
                     <Button Style="{StaticResource PlusButton}" x:Name="d8Plus" Command="{Binding PlusOneCommand}" CommandParameter="8"/>
 
@@ -101,7 +104,8 @@
 
                 <!--d10 row-->
                 <StackPanel Orientation="Horizontal">
-                    <Icon:PackIconMaterial Kind="DiceD10" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Icon:PackIconMaterial Kind="DiceD10" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"
+                                           ToolTip="Keybind: T"/>
                     <Button Style="{StaticResource MinusButton}" x:Name="d10Minus" Command="{Binding MinusOneCommand}" CommandParameter="10"/>
                     <Button Style="{StaticResource PlusButton}" x:Name="d10Plus" Command="{Binding PlusOneCommand}" CommandParameter="10"/>
 
@@ -111,7 +115,8 @@
 
                 <!--d12 row-->
                 <StackPanel Orientation="Horizontal">
-                    <Icon:PackIconMaterial Kind="DiceD12" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Icon:PackIconMaterial Kind="DiceD12" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"
+                                           ToolTip="Keybind: D"/>
                     <Button Style="{StaticResource MinusButton}" x:Name="d12Minus" Command="{Binding MinusOneCommand}" CommandParameter="12"/>
                     <Button Style="{StaticResource PlusButton}" x:Name="d12Plus" Command="{Binding PlusOneCommand}" CommandParameter="12"/>
 
@@ -121,7 +126,8 @@
 
                 <!--d20 row-->
                 <StackPanel Orientation="Horizontal">
-                    <Icon:PackIconMaterial Kind="DiceD20" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"/>
+                    <Icon:PackIconMaterial Kind="DiceD20" Height="50" Width="50" VerticalAlignment="Center" Foreground="{DynamicResource Text}" Margin="5"
+                                           ToolTip="Keybind: I"/>
                     <Button Style="{StaticResource MinusButton}" x:Name="d20Minus" Command="{Binding MinusOneCommand}" CommandParameter="20"/>
                     <Button Style="{StaticResource PlusButton}" x:Name="d20Plus" Command="{Binding PlusOneCommand}" CommandParameter="20"/>
 
@@ -188,7 +194,7 @@
 
         <!--bottom buttons-->
         <Button Style="{StaticResource WideIconButton}" Name="roll" ToolTip="Roll dice" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Grid.Row="3" Grid.Column="1" Command="{Binding RollCommand}">
+                Grid.Row="3" Grid.Column="1" Command="{Binding RollCommand}" CommandParameter="{x:Reference Name=mainwindow}">
             <StackPanel Orientation="Horizontal" Margin="10">
                 <Icon:PackIconMaterial Kind="DiceMultiple" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource Text}"
                                Height="25" Width="25"/>

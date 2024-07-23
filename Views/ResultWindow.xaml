@@ -1,0 +1,32 @@
+﻿<Window x:Class="DiceWorks.Views.ResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiceWorks.Views"
+        mc:Ignorable="d"
+        Height="auto" Width="auto" ResizeMode="NoResize" Title="Results" MinHeight="1" MinWidth="1"
+        SizeToContent="WidthAndHeight" Name="RW" FontSize="20" Background="{DynamicResource Backdrop}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+
+        <!--text-->
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Text="{Binding InputText}"/>
+
+        <!--bottom button-->
+        <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" IsDefault="True" Content="Go back"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5"
+                Click="Button_Click"/>
+
+    </Grid>
+</Window>
