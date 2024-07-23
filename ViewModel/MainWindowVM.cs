@@ -269,7 +269,7 @@ namespace DiceWorks.ViewModel
 
             if (!String.IsNullOrEmpty(str))
             {
-                str += String.Concat(Enumerable.Repeat("¬", 20)) + "\n";
+                str += String.Concat(Enumerable.Repeat("-", 20)) + "\n";
                 str += String.Format("Collective result = {0}", CollectiveSum);
                 ResultWindow resWin = new(str)
                 {
