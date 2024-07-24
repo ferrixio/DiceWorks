@@ -6,9 +6,9 @@
     <SolidColorBrush Color="#EDEDED" x:Key="Backdrop"/>
     <SolidColorBrush Color="Black" x:Key="Text"/>
     <SolidColorBrush Color="White" x:Key="cellBack"/>
-    <SolidColorBrush Color="#FF3F19" x:Key="RollDiceBackground"/>
-    <SolidColorBrush Color="#1966FF" x:Key="MinusButtonBackground"/>
-    <SolidColorBrush Color="#FF1966" x:Key="PlusButtonBackground"/>
+    <SolidColorBrush Color="#ff6a4d" x:Key="RollDiceBackground"/>
+    <SolidColorBrush Color="#67a4ff" x:Key="MinusButtonBackground"/>
+    <SolidColorBrush Color="#ff40a0" x:Key="PlusButtonBackground"/>
 
     <Style x:Key="NumericBox" TargetType="TextBox">
         <Setter Property="Background" Value="{DynamicResource cellBack}"/>
@@ -54,9 +54,9 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Height" Value="50"/>
-        <Setter Property="Width" Value="50"/>
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Margin" Value="5 5 0 5"/>
         <Setter Property="ToolTip" Value="i--"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -65,7 +65,7 @@
                         <Grid>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <Icon:PackIconMaterial Kind="Minus" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource Text}"
-                                                   Height="25" Width="25"/>
+                                                   Height="20" Width="20"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -84,9 +84,9 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Height" Value="50"/>
-        <Setter Property="Width" Value="50"/>
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Margin" Value="0 5 5 5"/>
         <Setter Property="ToolTip" Value="i++"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -95,7 +95,7 @@
                         <Grid>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource Text}"
-                                                   Height="25" Width="25"/>
+                                                   Height="20" Width="20"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>

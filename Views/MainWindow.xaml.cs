@@ -44,5 +44,33 @@ namespace DiceWorks.Views
             Regex regex = new(@"^[0-9]*$");
             return regex.IsMatch(text);
         }
+
+        private void SignedNumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new(@"^[+-]?[0-9]*$");
+            e.Handled = !re.IsMatch(e.Text);
+        }
+
+        private void SignedNumericTextBox_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                string text = (string)e.DataObject.GetData(typeof(string));
+                if (!IsSignedTextNumeric(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        private bool IsSignedTextNumeric(string text)
+        {
+            Regex regex = new(@"^[+-]?[0-9]*$");
+            return regex.IsMatch(text);
+        }
     }
 }
