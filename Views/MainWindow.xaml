@@ -10,7 +10,7 @@
         Background="{DynamicResource Backdrop}">
     <!--Keyboard shortcuts-->
     <Window.InputBindings>
-        <KeyBinding Key="R" Command="{Binding RollCommand}"/>
+        <KeyBinding Key="R" Command="{Binding RollCommand}" CommandParameter="{x:Reference Name=mainwindow}"/>
         <KeyBinding Key="C" Command="{Binding ClearCommand}"/>
         <KeyBinding Key="Delete" Command="{Binding ClearCommand}"/>
 

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:DiceWorks.Views"
         mc:Ignorable="d"
         Height="auto" Width="auto" ResizeMode="NoResize" Title="Results" MinHeight="1" MinWidth="1"
-        SizeToContent="WidthAndHeight" Name="RW" FontSize="20" Background="{DynamicResource Backdrop}">
+        SizeToContent="WidthAndHeight" Name="RW" FontSize="20" Background="{DynamicResource Backdrop}"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
