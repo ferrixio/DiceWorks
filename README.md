@@ -3,7 +3,7 @@
 
 :dragon: Author: Samuele Ferri ([@ferrixio](https://github.com/ferrixio), ferri#9207)
 
-:star: Version 1.0.0
+:star: Version 1.1.0
 
 ## Requirements
 .NET 8.0
