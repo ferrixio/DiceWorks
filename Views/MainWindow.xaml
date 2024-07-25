@@ -6,13 +6,14 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="DiceWorks.Views.MainWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" x:Name="mainwindow" Title="Dice Works" ResizeMode="CanMinimize"
-        Width="auto" Height="auto" SizeToContent="WidthAndHeight"
+        SizeToContent="WidthAndHeight"
         Background="{DynamicResource Backdrop}">
     <!--Keyboard shortcuts-->
     <Window.InputBindings>
         <KeyBinding Key="R" Command="{Binding RollCommand}" CommandParameter="{x:Reference Name=mainwindow}"/>
         <KeyBinding Key="C" Command="{Binding ClearCommand}"/>
         <KeyBinding Key="Delete" Command="{Binding ClearCommand}"/>
+        <KeyBinding Key="F" Command="{Binding TossCoinCommand}" CommandParameter="{x:Reference Name=mainwindow}"/>
 
         <KeyBinding Key="P" Command="{Binding PlusOneCommand}" CommandParameter="4"/>
         <KeyBinding Key="H" Command="{Binding PlusOneCommand}" CommandParameter="6"/>
@@ -207,11 +208,13 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0 10 0 0">
                     <TextBlock Text="ADVANTAGE" FontWeight="Bold" Margin="5 0 0 0"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox Style="{StaticResource NumericBox}" Margin="0"/>
-                        <ComboBox Width="50" Height="30" ItemsSource="{Binding DiceList}" SelectedIndex="{Binding SelDiceList}"
-                                  IsEditable="False" IsReadOnly="True" x:Name="DicePicker1"/>
-                        <TextBox Style="{StaticResource NumericBox}" Margin="0" PreviewTextInput="SignedNumberValidationTextBox"/>
-                        <Button Style="{DynamicResource WideIconButton}" Margin="5 0 0 0" Height="30" Width="30">
+                        <TextBox Style="{StaticResource NumericBox}" Margin="0" Text="{Binding AdvCount, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox Width="60" Height="30" ItemsSource="{Binding DiceList}" SelectedIndex="{Binding SelDiceListAdv}"
+                                  IsEditable="False" IsReadOnly="True" x:Name="DicePicker1" VerticalContentAlignment="Center"
+                                  HorizontalContentAlignment="Center" FontSize="18"/>
+                        <TextBox Style="{StaticResource NumericBox}" Margin="0" PreviewTextInput="SignedNumberValidationTextBox"
+                                 Text="{Binding AdvMod, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Style="{DynamicResource WideIconButton}" Margin="5 0 0 0" Height="30" Width="30" Command="{Binding AdvCommand}" CommandParameter="{x:Reference Name=mainwindow}">
                             <Icon:PackIconMaterial Kind="DiceMultiple" Height="25" Width="25"/>
                         </Button>
                     </StackPanel>
@@ -221,11 +224,12 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0 10 0 0">
                     <TextBlock Text="DISADVANTAGE" FontWeight="Bold" Margin="5 0 0 0"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox Style="{StaticResource NumericBox}" Margin="0"/>
-                        <ComboBox Width="50" Height="30" ItemsSource="{Binding DiceList}" SelectedIndex="{Binding SelDiceList}"
-                                  IsEditable="False" IsReadOnly="True" x:Name="DicePicker2"/>
-                        <TextBox Style="{StaticResource NumericBox}" Margin="0"/>
-                        <Button Style="{DynamicResource WideIconButton}" Margin="5 0 0 0" Height="30" Width="30">
+                        <TextBox Style="{StaticResource NumericBox}" Margin="0" Text="{Binding DisCount, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox Width="60" Height="30" ItemsSource="{Binding DiceList}" SelectedIndex="{Binding SelDiceListDis}"
+                                  IsEditable="False" IsReadOnly="True" x:Name="DicePicker2" VerticalContentAlignment="Center"
+                                  HorizontalContentAlignment="Center" FontSize="18"/>
+                        <TextBox Style="{StaticResource NumericBox}" Margin="0" Text="{Binding DisMod, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Style="{DynamicResource WideIconButton}" Margin="5 0 0 0" Height="30" Width="30" Command="{Binding DisCommand}" CommandParameter="{x:Reference Name=mainwindow}">
                             <Icon:PackIconMaterial Kind="DiceMultiple" Height="25" Width="25"/>
                         </Button>
                     </StackPanel>
@@ -235,11 +239,14 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0 10 0 0">
                     <TextBlock Text="ARBITRARY DIE" FontWeight="Bold" Margin="5 0 0 0"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox Style="{StaticResource NumericBox}" Margin="0" PreviewTextInput="NumberValidationTextBox"/>
+                        <TextBox Style="{StaticResource NumericBox}" Margin="0" PreviewTextInput="NumberValidationTextBox"
+                                 Text="{Binding ArbCount, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Text="d" FontSize="24"/>
-                        <TextBox Style="{StaticResource NumericBox}" Margin="0" PreviewTextInput="NumberValidationTextBox"/>
-                        <TextBox Style="{StaticResource NumericBox}" Margin="0" PreviewTextInput="SignedNumberValidationTextBox"/>
-                        <Button Style="{DynamicResource WideIconButton}" Margin="5 0 0 0" Height="30" Width="30">
+                        <TextBox Style="{StaticResource NumericBox}" Margin="0" PreviewTextInput="NumberValidationTextBox"
+                                 Text="{Binding ArbDie, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Style="{StaticResource NumericBox}" Margin="0" PreviewTextInput="SignedNumberValidationTextBox"
+                                 Text="{Binding ArbMod, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Style="{DynamicResource WideIconButton}" Margin="5 0 0 0" Height="30" Width="30" Command="{Binding ArbitraryCommand}" CommandParameter="{x:Reference Name=mainwindow}">
                             <Icon:PackIconMaterial Kind="DiceMultiple" Height="25" Width="25"/>
                         </Button>
                     </StackPanel>
@@ -247,7 +254,7 @@
 
                 <!--d100-->
                 <Button Style="{StaticResource WideIconButton}" Name="Roll100" ToolTip="Roll 1d100" HorizontalAlignment="Center"
-                        VerticalAlignment="Center" Margin="0 10 0 0">
+                        VerticalAlignment="Center" Margin="0 30 0 0" Command="{Binding HundredCommand}" CommandParameter="{x:Reference Name=mainwindow}">
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <Icon:PackIconMaterial Kind="Percent" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Left"
                                                Height="25" Width="25"/>
@@ -256,8 +263,8 @@
                 </Button>
 
                 <!--coin-->
-                <Button Style="{StaticResource WideIconButton}" Name="TossCoin" ToolTip="Flip a coin" HorizontalAlignment="Center"
-                        VerticalAlignment="Center" Margin="0 10 0 0">
+                <Button Style="{StaticResource WideIconButton}" Name="TossCoin" ToolTip="Flip a coin. Shortcut: F" HorizontalAlignment="Center"
+                        VerticalAlignment="Center" Margin="0 10 0 0" Command="{Binding TossCoinCommand}" CommandParameter="{x:Reference Name=mainwindow}">
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <Icon:PackIconMaterial Kind="HandCoinOutline" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Left"
                                Height="25" Width="25"/>

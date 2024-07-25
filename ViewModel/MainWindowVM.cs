@@ -16,6 +16,13 @@ namespace DiceWorks.ViewModel
         public ICommand PlusOneCommand {  get; set; }
         public ICommand PlusModOneCommand { get; set; }
 
+        public ICommand TossCoinCommand { get; set; }
+        public ICommand HundredCommand { get; set; }
+        public ICommand AdvCommand { get; set; }
+        public ICommand DisCommand { get; set; }
+
+        public ICommand ArbitraryCommand { get; set; }
+
         private int _D4Count;
         public int D4Count
         {
@@ -100,6 +107,59 @@ namespace DiceWorks.ViewModel
             set { _D20Mod = value; OnPropertyChanged("D20Mod"); }
         }
 
+        private int _AdvCount;
+        public int AdvCount
+        {
+            get { return _AdvCount; }
+            set { _AdvCount = value; OnPropertyChanged("AdvCount"); }
+        }
+
+        private int _AdvMod;
+        public int AdvMod
+        {
+            get { return _AdvMod; }
+            set { _AdvMod = value; OnPropertyChanged("AdvMod"); }
+        }
+
+        private int _DisCount;
+        public int DisCount
+        {
+            get { return _DisCount; }
+            set { _DisCount = value; OnPropertyChanged("DisCount"); }
+        }
+
+        private int _DisMod;
+        public int DisMod
+        {
+            get { return _DisMod; }
+            set { _DisMod = value; OnPropertyChanged("DisMod"); }
+        }
+
+        private int _ArbCount;
+        public int ArbCount
+        {
+            get { return _ArbCount; }
+            set { _ArbCount = value; OnPropertyChanged("ArbCount"); }
+        }
+
+        private int _ArbDie;
+        public int ArbDie
+        {
+            get { return _ArbDie; }
+            set { _ArbDie = value; OnPropertyChanged("ArbDie"); }
+        }
+
+        private int _ArbMod;
+        public int ArbMod
+        {
+            get { return _ArbMod; }
+            set { _ArbMod = value; OnPropertyChanged("ArbMod"); }
+        }
+
+        public List<string> DiceList { get; set; }
+        public int SelDiceListAdv { get; set; }
+        public int SelDiceListDis { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
@@ -119,16 +179,123 @@ namespace DiceWorks.ViewModel
             D10Count = 0; D10Mod = 0;
             D12Count = 0; D12Mod = 0;
             D20Count = 0; D20Mod = 0;
+            AdvCount = 2; AdvMod = 0;
+            DisCount = 2; DisMod = 0;
+            ArbCount = 1; ArbDie = 3; ArbMod = 0;
+
+            DiceList = ["d4", "d6", "d8", "d10", "d12", "d20"];
+            SelDiceListAdv = 5;
+            SelDiceListDis = 5;
 
             MinusOneCommand = new RelayCommand(CallMinusOne, CanShowWindow);
             PlusOneCommand = new RelayCommand(CallPlusOne, CanShowWindow);
             MinusModOneCommand = new RelayCommand(CallModMinusOne, CanShowWindow);
             PlusModOneCommand = new RelayCommand(CallModPlusOne, CanShowWindow);
 
+            TossCoinCommand = new RelayCommand(CallToss, CanShowWindow);
+            HundredCommand = new RelayCommand(CallHundred, CanShowWindow);
+            AdvCommand = new RelayCommand(CallAdvantage, CanShowWindow);
+            DisCommand = new RelayCommand(CallDisadvantage, CanShowWindow);
+
+            ArbitraryCommand = new RelayCommand(CallArbRoll, CanShowWindow);
+
             RollCommand = new RelayCommand(CallRoll, CanShowWindow);
             ClearCommand = new RelayCommand(CallClearAll, CanShowWindow);
         }
 
+        /// <summary>
+        /// Function that handles the toss coin request
+        /// </summary>
+        /// <param name="obj"></param>
+        public void CallToss(object obj)
+        {
+            Random luck = new(Guid.NewGuid().GetHashCode()); // rng
+
+            int res = luck.Next(1, 258);
+            string str = "What a luck: Tie!";
+
+            if (res >= 1 && res <= 128) str = "Head";
+            else if (res >= 129 && res <= 256) str = "Tail";
+
+            Show(obj, str);
+        }
+
+        /// <summary>
+        /// Rolls 1d100
+        /// </summary>
+        /// <param name="obj"></param>
+        public void CallHundred(object obj)
+        {
+            Random luck = new(Guid.NewGuid().GetHashCode()); // rng
+            Show(obj, String.Format("{0}", luck.Next(1, 101)));
+        }
+
+        /// <summary>
+        /// Function for advantage rolls
+        /// </summary>
+        /// <param name="obj"></param>
+        public void CallAdvantage(object obj)
+        {
+            if (AdvCount < 2) AdvCount = 2;
+
+            int[] seq = new int[AdvCount];
+            Random luck = new(Guid.NewGuid().GetHashCode()); // rng
+
+            for (int i = 0; i < AdvCount; i++)
+            {
+                seq[i] = luck.Next(1, Combo2Int(DiceList[SelDiceListAdv])+1);
+            }
+
+            Show(obj, String.Format("Advantage roll:\n\n{0}{1}{2} = {3} -> {4}\n",
+                AdvCount, DiceList[SelDiceListAdv], Mod2SgnInt(AdvMod), List2Str(seq), seq.Max() + AdvMod));
+        }
+
+        /// <summary>
+        /// Function for disadvantage rolls
+        /// </summary>
+        /// <param name="obj"></param>
+        public void CallDisadvantage(object obj)
+        {
+            if (DisCount < 2) DisCount = 2;
+
+            int[] seq = new int[DisCount];
+            Random luck = new(Guid.NewGuid().GetHashCode()); // rng
+
+            for (int i = 0; i < DisCount; i++)
+            {
+                seq[i] = luck.Next(1, Combo2Int(DiceList[SelDiceListDis]) + 1);
+            }
+
+            Show(obj, String.Format("Disadvantage roll:\n\n{0}{1}{2} = {3} -> {4}\n",
+                DisCount, DiceList[SelDiceListDis], Mod2SgnInt(DisMod), List2Str(seq), seq.Min() + DisMod));
+        }
+
+        /// <summary>
+        /// Function for rolls with arbitrary die
+        /// </summary>
+        /// <param name="obj"></param>
+        public void CallArbRoll(object obj)
+        {
+            if (ArbDie > 1)
+            {
+                int[] seq = new int[ArbCount];
+                Random luck = new(Guid.NewGuid().GetHashCode()); // rng
+
+                for (int i = 0; i < ArbCount; i++)
+                {
+                    seq[i] = luck.Next(1, ArbDie + 1);
+                }
+
+                Show(obj, String.Format("{0}d{1}{2} = {3} -> {4}", ArbCount, ArbDie, Mod2SgnInt(ArbMod), List2Str(seq), seq.Sum() + ArbMod));
+            }
+        }
+
+        /// <summary>
+        /// Reduce the variable by one. Set to zero if a counter becomes negative
+        /// </summary>
+        /// <param name="variable"></param>
+        /// <param name="isMod"></param>
+        /// <returns></returns>
         public static int MinusOne(int variable, bool isMod=false)
         {
             variable--;
@@ -137,6 +304,11 @@ namespace DiceWorks.ViewModel
             return variable;
         }
 
+        /// <summary>
+        /// Add one to the selected variable. Max value 999
+        /// </summary>
+        /// <param name="variable"></param>
+        /// <returns></returns>
         public static int PlusOne(int variable)
         {
             variable++;
@@ -145,6 +317,10 @@ namespace DiceWorks.ViewModel
             return variable;
         }
 
+        /// <summary>
+        /// Function to reduce dice counters by one
+        /// </summary>
+        /// <param name="obj"></param>
         public void CallMinusOne(object obj)
         {
             int dice = int.Parse(obj.ToString());
@@ -161,6 +337,10 @@ namespace DiceWorks.ViewModel
             }
         }
 
+        /// <summary>
+        /// Function to add one to die counters
+        /// </summary>
+        /// <param name="obj"></param>
         public void CallPlusOne(object obj)
         {
             int dice = int.Parse(obj.ToString());
@@ -177,6 +357,10 @@ namespace DiceWorks.ViewModel
             }
         }
 
+        /// <summary>
+        /// Function to reduce dice modifiers by one
+        /// </summary>
+        /// <param name="obj"></param>
         public void CallModMinusOne(object obj)
         {
             int dice = int.Parse(obj.ToString());
@@ -193,6 +377,10 @@ namespace DiceWorks.ViewModel
             }
         }
 
+        /// <summary>
+        /// Function to add one to dice modifiers
+        /// </summary>
+        /// <param name="obj"></param>
         public void CallModPlusOne(object obj)
         {
             int dice = int.Parse(obj.ToString());
@@ -209,6 +397,10 @@ namespace DiceWorks.ViewModel
             }
         }
 
+        /// <summary>
+        /// Function to reset all variables
+        /// </summary>
+        /// <param name="obj"></param>
         public void CallClearAll(object obj)
         {
             D4Count = 0; D4Mod = 0;
@@ -217,8 +409,15 @@ namespace DiceWorks.ViewModel
             D10Count = 0; D10Mod = 0;
             D12Count = 0; D12Mod = 0;
             D20Count = 0; D20Mod = 0;
+            AdvCount = 2; AdvMod = 0;
+            DisCount = 2; DisMod = 0;
+            ArbCount = 1; ArbDie = 3; ArbMod = 0;
         }
 
+        /// <summary>
+        /// Function to roll dice and show results
+        /// </summary>
+        /// <param name="obj"></param>
         public void CallRoll(object obj)
         {
             int[] r4, r6, r8, r10, r12, r20;
@@ -269,17 +468,16 @@ namespace DiceWorks.ViewModel
 
             if (!String.IsNullOrEmpty(str))
             {
-                str += String.Concat(Enumerable.Repeat("-", 20)) + "\n";
-                str += String.Format("Collective result = {0}", CollectiveSum);
-                ResultWindow resWin = new(str)
-                {
-                    Owner = obj as Window,
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner
-                };
-                resWin.ShowDialog();
+                str += String.Concat(Enumerable.Repeat("-", 20)) + "\n" + String.Format("Collective result = {0}", CollectiveSum);
+                Show(obj, str);
             }
         }
 
+        /// <summary>
+        /// Function that converts the modifier in a str representing its signed integer
+        /// </summary>
+        /// <param name="mod"></param>
+        /// <returns></returns>
         public string Mod2SgnInt(int mod)
         {
             if (mod >= 0)
@@ -290,15 +488,46 @@ namespace DiceWorks.ViewModel
             return String.Format("{0}", mod);
         }
 
+        /// <summary>
+        /// Function that emulates "print(list)" of python
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public string List2Str(int[] array)
         {
             return "["+String.Join(", ", array)+"]";
         }
 
+        /// <summary>
+        /// Function that return the associated dice with respect to the combobox
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public static int Combo2Int(string word)
+        {
+            int die = word switch
+            {
+                "d4" => 4,
+                "d6" => 6,
+                "d8" => 8,
+                "d10" => 10,
+                "d12" => 12,
+                "d20" => 20,
+                _ => 0,
+            };
+            return die;
+        }
+
+        /// <summary>
+        /// Function that evaluates the rolled sequence of dice
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="diceSize"></param>
+        /// <returns></returns>
         public static int[] RollSequence(int number, int diceSize)
         {
             int[] results = new int[number];
-            Random luck = new Random(Guid.NewGuid().GetHashCode()); // rng
+            Random luck = new(Guid.NewGuid().GetHashCode()); // rng
 
             for (int i = 0; i < number; i++)
             {
@@ -307,6 +536,21 @@ namespace DiceWorks.ViewModel
 
             return results;
 
+        }
+
+        /// <summary>
+        /// Function that shows the result window
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="message"></param>
+        public void Show(object obj, string message)
+        {
+            ResultWindow resWin = new(message)
+            {
+                Owner = obj as Window,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            resWin.ShowDialog();
         }
 
         public static bool CanShowWindow(object obj) { return true; }
