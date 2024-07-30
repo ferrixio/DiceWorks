@@ -5,8 +5,8 @@
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="DiceWorks.Views.MainWindow"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" x:Name="mainwindow" Title="Dice Works" ResizeMode="CanMinimize"
-        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen" x:Name="mainwindow" Title="Dice Works"
+        SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" UseLayoutRounding="True"
         Background="{DynamicResource Backdrop}">
     <!--Keyboard shortcuts-->
     <Window.InputBindings>
@@ -48,11 +48,12 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="1"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="1"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
@@ -201,7 +202,7 @@
         <!--separating line-->
         <Rectangle Fill="Black" Grid.Row="2" Grid.Column="4"/>
 
-        <DockPanel Grid.Row="2" Grid.Column="5" HorizontalAlignment="Center" Margin="10 0 10 0">
+        <DockPanel Grid.Row="2" Grid.Column="5" HorizontalAlignment="Center" Margin="10 0 0 0">
             <StackPanel DockPanel.Dock="Top" Orientation="Vertical" VerticalAlignment="Top">
                 
                 <!--advantage roll-->
@@ -275,7 +276,7 @@
         </DockPanel>
 
         <!--bottom buttons-->
-        <DockPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+        <DockPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 10 0 10">
             <Button Style="{StaticResource WideIconButton}" Name="roll" ToolTip="Roll dice" HorizontalAlignment="Center" VerticalAlignment="Center"
                     Grid.Row="3" Grid.Column="1" Command="{Binding RollCommand}" CommandParameter="{x:Reference Name=mainwindow}">
                 <StackPanel Orientation="Horizontal" Margin="10">

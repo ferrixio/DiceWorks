@@ -246,7 +246,7 @@ namespace DiceWorks.ViewModel
                 seq[i] = luck.Next(1, Combo2Int(DiceList[SelDiceListAdv])+1);
             }
 
-            Show(obj, String.Format("Advantage roll:\n\n{0}{1}{2} = {3} -> {4}\n",
+            Show(obj, String.Format("Advantage roll:\n\n{0}{1}{2} = {3} -> {4}",
                 AdvCount, DiceList[SelDiceListAdv], Mod2SgnInt(AdvMod), List2Str(seq), seq.Max() + AdvMod));
         }
 
