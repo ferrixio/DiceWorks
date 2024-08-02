@@ -3,7 +3,7 @@
 
 :dragon: Author: Samuele Ferri ([@ferrixio](https://github.com/ferrixio), ferri#9207)
 
-:star: Version 1.1.0
+:star: Version 1.1.1
 
 ## Requirements
 .NET 8.0
@@ -20,3 +20,7 @@ At the moment it is a simple dice thrower with modifiers, but in the future I'm 
 rolls that I have already implemented in the discord bot.
 
 The name "Dice Works" is a reference to the word "clockworks", but in a dice context.
+
+## License
+
+This software is licensed under the MIT license.
