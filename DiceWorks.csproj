@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>DW_Icon.ico</ApplicationIcon>
-    <Version>1.0.0</Version>
+    <Version>1.1.1</Version>
     <Description>A dice roller</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <FileVersion>1.1.1</FileVersion>
@@ -15,6 +15,8 @@
     <AssemblyVersion>1.1.1</AssemblyVersion>
     <RepositoryUrl>https://github.com/ferrixio/DiceWorks</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <StartupObject>DiceWorks.App</StartupObject>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,9 +30,14 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

@@ -6,9 +6,9 @@
 :star: Version 1.1.1
 
 ## Requirements
-.NET 8.0
+This program needs .NET Core 8.0 (at the first start of the application, if you don't have this .NET Core, Windows will reminds you to the page where download it).
 
-## Story - _Math rocks go clickety clackety_
+## History - _Math rocks go clickety clackety_
 
 It is been a while that my friends and I have been using the discord bot I programmed to roll dice.
 It has evolved over the years and has become a software we still use today.
