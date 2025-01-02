@@ -5,6 +5,8 @@
 
 :star: Version 1.1.1
 
+:bar_chart: Status: closed
+
 ## Requirements
 This program needs .NET Core 8.0 (at the first start of the application, if you don't have this .NET Core, Windows will reminds you to the page where download it).
 
